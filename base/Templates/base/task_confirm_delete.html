@@ -1,6 +1,17 @@
 {% extends 'base/main.html' %}
 {% block content %}
 
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+    }
+</style>
+
 <a href="{% url 'tasks' %}">Go Back</a>
 <form method="POST">
     {% csrf_token %}

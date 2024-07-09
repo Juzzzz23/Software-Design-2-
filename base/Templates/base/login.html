@@ -1,15 +1,27 @@
 {% extends 'base/main.html' %}
 {% block content %}
 
-<h1>Login</h1>
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+    }
+</style>
 
-<form method="POST">
-    {% csrf_token %}
-    {{form.as_p}}
-    <input type="submit" value="Login">
-</form>
+<div class="centered-container">
+    <h1>Login</h1>
 
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Login">
+    </form>
 
-<p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+    <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
+</div>
 
 {% endblock content %}
