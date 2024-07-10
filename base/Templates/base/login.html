@@ -1,21 +1,71 @@
 {% extends 'base/main.html' %}
 {% block content %}
 
-<div class="header-bar">
-    <h1>Login</h1>
-</div>
+<style>
+    .centered-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        text-align: center;
+        background-color: #f9f9f9;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
 
-<div class="card-body">
+    .centered-container h1 {
+        margin-bottom: 20px;
+        font-size: 2.5em;
+        color: #333;
+    }
+
+    .centered-container form {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .centered-container input[type="submit"] {
+        margin-top: 10px;
+        padding: 10px;
+        background-color: #007BFF;
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1em;
+    }
+
+    .centered-container input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .centered-container p {
+        margin-top: 20px;
+        color: #555;
+    }
+
+    .centered-container a {
+        color: #007BFF;
+        text-decoration: none;
+    }
+
+    .centered-container a:hover {
+        text-decoration: underline;
+    }
+</style>
+
+<div class="centered-container">
+    <h1>Login</h1>
+
     <form method="POST">
         {% csrf_token %}
-        {{form.as_p}}
-        <input class="button" type="submit" value="Login">
+        {{ form.as_p }}
+        <input type="submit" value="Login">
     </form>
+
     <p>Don't have an account? <a href="{% url 'register' %}">Register</a></p>
 </div>
-
-
-
-
 
 {% endblock content %}

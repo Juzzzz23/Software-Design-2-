@@ -16,13 +16,31 @@
 
         <label>{{form.password2.label}}</label>
         {{ form.password2 }}
-        <input style="margin-top:10px" type="submit" value="Register">
+        <input 
+            style="margin-top: 10px; padding: 10px 20px; font-size: 16px; color: #fff; background-color: #007bff; border: none; border-radius: 5px; cursor: pointer;" 
+            type="submit" 
+            value="Register"
+            onmouseover="this.style.backgroundColor='#0056b3'"
+            onmouseout="this.style.backgroundColor='#007bff'"
+            onmousedown="this.style.backgroundColor='#004085'; this.style.transform='scale(0.98)'"
+            onmouseup="this.style.backgroundColor='#0056b3'; this.style.transform='scale(1)'"
+        >
     </form>
 
     <p>Already have an account?</p>
     <form method="post" action="{% url 'logout' %}">
         {% csrf_token %}
-        <button class="button" type="login">Login</button>
+        <button 
+            class="button" 
+            type="login"
+            style="padding: 10px 20px; font-size: 16px; color: #fff; background-color: #6c757d; border: none; border-radius: 5px; cursor: pointer;"
+            onmouseover="this.style.backgroundColor='#5a6268'"
+            onmouseout="this.style.backgroundColor='#6c757d'"
+            onmousedown="this.style.backgroundColor='#343a40'; this.style.transform='scale(0.98)'"
+            onmouseup="this.style.backgroundColor='#5a6268'; this.style.transform='scale(1)'"
+        >
+            Login
+        </button>
     </form>
 </div>
 
