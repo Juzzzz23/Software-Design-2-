@@ -17,8 +17,9 @@ class CustomLoginView(LoginView):
     fields = '__all__'
     redirect_authenticated_user = True
 
-    def get_success_url(seLf):
-        return reverse_lazy('tasks')
+    def get_success_url(self):
+        username = self.request.user.username
+        return reverse_lazy('user-tasks', kwargs={'username': username})
 
 class RegisterPage(FormView):
     template_name = 'base/register.html'
@@ -45,6 +46,7 @@ class TaskList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        username = self.kwargs['username']
         context['tasks'] = context['tasks'].filter(user=self.request.user)
         context['count'] = context['tasks'].filter(complete=False).count()
 
