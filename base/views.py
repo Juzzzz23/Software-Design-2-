@@ -25,18 +25,19 @@ class RegisterPage(FormView):
     template_name = 'base/register.html'
     form_class = UserCreationForm
     redirect_authenticated_user = True
-    success_url = reverse_lazy('tasks')
+    success_url = reverse_lazy('user-tasks', kwargs={'username': 'temp'})
 
 
     def form_valid(self, form):
         user = form.save()
         if user is not None:
             login(self.request, user)
+        self.success_url = reverse_lazy('user-tasks', kwargs={'username': user.username})
         return super(RegisterPage, self).form_valid(form)
     
     def get(self, *args, **kwargs):
         if self.request.user.is_authenticated:
-            return redirect('tasks')
+            return redirect('user-tasks', username=self.request.user.username)
         return super(RegisterPage, self).get(*args, **kwargs)
 
 
@@ -69,7 +70,9 @@ class TaskDetail(LoginRequiredMixin, DetailView):
 class TaskCreate(LoginRequiredMixin, CreateView):
     model = Task
     fields = ['title', 'description', 'complete']
-    success_url = reverse_lazy('tasks')
+
+    def get_success_url(self):
+        return reverse_lazy('user-tasks', kwargs={'username': self.request.user.username})
 
     def form_valid(self, form):
         form.instance.user = self.request.user
@@ -80,9 +83,13 @@ class TaskCreate(LoginRequiredMixin, CreateView):
 class TaskUpdate(LoginRequiredMixin, UpdateView):
     model = Task
     fields = ['title', 'description', 'complete']
-    success_url = reverse_lazy('tasks')
+
+    def get_success_url(self):
+        return reverse_lazy('user-tasks', kwargs={'username': self.request.user.username})
 
 class DeleteView(LoginRequiredMixin, DeleteView):
     model = Task
     context_object_name =  'task'
-    success_url = reverse_lazy('tasks')
+
+    def get_success_url(self):
+        return reverse_lazy('user-tasks', kwargs={'username': self.request.user.username})
